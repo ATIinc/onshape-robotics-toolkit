@@ -255,12 +255,12 @@ def get_robot_joint(
                 parent=parent,
                 child=child,
                 origin=origin,
-                # limits=JointLimits(
-                #     effort=1.0,
-                #     velocity=1.0,
-                #     lower=-0.1,
-                #     upper=0.1,
-                # ),
+                limits=JointLimits(
+                    effort=1.0,
+                    velocity=1.0,
+                    lower=-0.1,
+                    upper=0.1,
+                ),
                 axis=Axis((0.0, 0.0, -1.0)),
                 # dynamics=JointDynamics(damping=0.1, friction=0.1),
                 mimic=mimic,
