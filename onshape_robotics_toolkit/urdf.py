@@ -104,11 +104,18 @@ def get_robot_link(
         _link_to_stl_tf = mate.matedEntities[CHILD].matedCS.part_to_mate_tf
 
     _stl_to_link_tf = np.matrix(np.linalg.inv(_link_to_stl_tf))
-    _mass = part.MassProperty.mass[0]
     _origin = Origin.zero_origin()
-    _com = part.MassProperty.center_of_mass_wrt(_stl_to_link_tf)
-    _inertia = part.MassProperty.inertia_wrt(np.matrix(_stl_to_link_tf[:3, :3]))
     _principal_axes_rotation = (0.0, 0.0, 0.0)
+    
+    if part.MassProperty is None:
+        LOGGER.warning(f"Unable to fetch MassProperty for link {name}")
+        _mass = 0.0
+        _com = np.zeros(3)
+        _inertia = np.zeros((3, 3))
+    else:
+        _mass = part.MassProperty.mass[0]
+        _com = part.MassProperty.center_of_mass_wrt(_stl_to_link_tf)
+        _inertia = part.MassProperty.inertia_wrt(np.matrix(_stl_to_link_tf[:3, :3]))
 
     LOGGER.info(f"Creating robot link for {name}")
 
