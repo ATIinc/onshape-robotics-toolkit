@@ -25,7 +25,6 @@ from enum import Enum
 from typing import Any, BinaryIO, Optional, Union
 from urllib.parse import parse_qs, urlencode, urlparse
 
-import dotenv
 import lxml.etree as ET
 import numpy as np
 import requests
@@ -874,6 +873,18 @@ class Client:
             raise KeyError(f"Bodies not found in response, broken part? {partID}")
 
         return MassProperties.model_validate(resonse_json["bodies"][partID])
+
+    def get_configurations(
+        self,
+        did: str,
+        wtype: str,
+        wid: str,
+        eid: str,
+    ):
+        request_path = f"/api/elements/d/{did}/{wtype}/{wid}/e/{eid}/configuration"
+        res = self.request(HTTP.GET, request_path)
+        # TODO: no config models, just return the dictionary
+        return res.json()
 
     def request(
         self,
