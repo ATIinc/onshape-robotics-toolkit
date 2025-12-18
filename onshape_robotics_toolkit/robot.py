@@ -838,6 +838,7 @@ class Robot:
         max_depth: int = 0,
         use_user_defined_root: bool = False,
         robot_type: RobotType = RobotType.URDF,
+        configuration: str = "default",
     ) -> "Robot":
         """
         Load a robot model from an Onshape CAD assembly.
@@ -849,6 +850,7 @@ class Robot:
             max_depth: The maximum depth to process the assembly.
             use_user_defined_root: Whether to use the user-defined root.
             robot_type: The type of the robot.
+            configuration: e.g. List_sCW2T7xBCmN6an=_500_mm
 
         Returns:
             The robot model.
@@ -864,6 +866,7 @@ class Robot:
             eid=document.eid,
             log_response=False,
             with_meta_data=True,
+            configuration=configuration,
         )
 
         instances, occurrences, id_to_name_map = get_instances(assembly=assembly, max_depth=max_depth)
