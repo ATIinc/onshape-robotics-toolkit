@@ -877,10 +877,11 @@ class Client:
     def get_configurations(
         self,
         did: str,
+        wtype: str,
         wid: str,
         eid: str,
     ):
-        request_path = f"/api/elements/d/{did}/wvm/{wid}/e/{eid}/configuration"
+        request_path = f"/api/elements/d/{did}/{wtype}/{wid}/e/{eid}/configuration"
         res = self.request(HTTP.GET, request_path)
         # TODO: no config models, just return the dictionary
         return res.json()
